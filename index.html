@@ -1,77 +1,71 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kampung Santuy</title>
+  <meta charset="UTF-8">
+  <title>Kampung Santuy Jumpscare</title>
   <style>
     body {
-      margin: 0;
-      background: black;
+      background-color: black;
       color: white;
-      font-family: sans-serif;
       text-align: center;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
     }
+
     h1 {
-      margin-top: 20vh;
-      font-size: 2.5rem;
+      margin-top: 50px;
+      font-size: 2em;
       color: red;
     }
+
     button {
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
-      background: green;
-      color: white;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: #00cc99;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
+      margin-top: 30px;
     }
+
     video {
+      display: none;
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
-      object-fit: cover;
       z-index: 9999;
-      display: none;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
 
-  <h1>Selamat Datang di Kampung Santuy 😈</h1>
-  <p>Web paling Kocak 😵</p>
-  <button onclick="startJumpscare()">Klik kalau berani 👿</button>
+  <h1>Selamat Datang di Kampung Santuy 😎</h1>
+  <p>Web paling absurd sedunia</p>
+  <button onclick="showJumpscare()">Klik kalau berani 😈</button>
 
-  <video id="jumpscareVideo" autoplay playsinline muted></video>
+  <video id="jumpscare" src="https://cdn.pixabay.com/video/2023/08/23/181178-857303019_large.mp4"></video>
 
   <script>
-    const video = document.getElementById("jumpscareVideo");
-    const videos = [
-      "https://cdn.pixabay.com/video/2023/02/28/153494-804309366_large.mp4", // ganti ini dengan video jumpscare
-      "https://cdn.pixabay.com/video/2023/08/23/181178-857303019_large.mp4"
-    ];
-
-    function startJumpscare() {
-      const randomIndex = Math.floor(Math.random() * videos.length);
-      video.src = videos[randomIndex];
+    function showJumpscare() {
+      const video = document.getElementById("jumpscare");
       video.style.display = "block";
       video.play();
 
-      vibrateLoop();
-
-      // Setelah selesai, repeat dengan video lain
-      video.onended = () => {
-        startJumpscare();
-      };
-    }
-
-    function vibrateLoop() {
+      // Vibration (Mobile only)
       if (navigator.vibrate) {
         navigator.vibrate([300, 100, 300, 100, 500]);
-        setTimeout(vibrateLoop, 1500); // loop getar
       }
+
+      // Ulangi jumpscare setiap 15 detik (acak)
+      setInterval(() => {
+        video.currentTime = 0;
+        video.play();
+        if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
+      }, 15000);
     }
   </script>
 
